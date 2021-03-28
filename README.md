@@ -1,4 +1,4 @@
-# End-to-End Encrypted(E2EE) Cloud Screen Capture 🔐📤
+# End-to-End Encrypted (E2EE) Cloud Screen Capture 🔐
  An **open-source screen capture** utility writen in C++ that uploads the screenshot to End-to-End Encrypted (E2EE) Cloud provider [Mega](https://mega.nz) and provides a link to share the screenshot.
 
 
