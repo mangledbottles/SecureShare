@@ -1,1 +1,9 @@
+# Compiled Code
 main
+/cmake-build-debug
+
+# Testing code directory
+/tests
+
+# Environment
+/.idea
