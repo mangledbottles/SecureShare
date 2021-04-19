@@ -7,3 +7,8 @@ main
 
 # Environment
 /.idea
+/build
+/.vscode
+
+# Screenshots
+/images
