@@ -10,3 +10,10 @@ People share confidential data via screenshots insecurely over the internet
 - Create a C++ program that facilities end-to-end encrypted secure communications (E2EE SECOMS) 🔐
 - Screen capture utility
 - Mega Cloud integration
+
+### Usage
+Compile
+> g++ main.cpp -o screen
+
+Run
+> ./screen
