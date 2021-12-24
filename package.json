@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "gun": "^0.2020.1235"
+  },
+  "name": "secureshare",
+  "description": "What is Secure Share? > A Decentralised App (DApp) for Sharing Secure End-to-End Encrypted (E2EE) Screenshots",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "ts-node ./src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangledbottles/SecureShare.git"
+  },
+  "keywords": ["dapp", "decentralysed", "e2ee", "screenshot", "share", "secureshare"],
+  "author": "Dermot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangledbottles/SecureShare/issues"
+  },
+  "homepage": "https://github.com/mangledbottles/SecureShare#readme"
+}
