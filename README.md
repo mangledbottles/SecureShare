@@ -1,19 +1,9 @@
-# End-to-End Encrypted (E2EE) Cloud Screen Capture 🔐
- An **open-source screen capture** utility writen in C++ that uploads the screenshot to End-to-End Encrypted (E2EE) Cloud provider [Mega](https://mega.nz) and provides a link to share the screenshot.
+# Secure Share
+What is Secure Share?
+> A Decentralised App (DApp) for Sharing Secure End-to-End Encrypted (E2EE) Screenshots
 
-
-### Problem
-People share confidential data via screenshots insecurely over the internet
-
-### Objectives
-- Share screenshots **securely** and prevent *hackers, governments and tech companies* from intercepting 🔍👀
-- Create a C++ program that facilities end-to-end encrypted secure communications (E2EE SECOMS) 🔐
-- Screen capture utility
-- Mega Cloud integration
-
-### Usage
-Compile
-> g++ main.cpp -o screen
-
-Run
-> ./screen
+## Features
+- Decentralised Graph Peer-to-Peer Database (GunJS)
+- Secured with End-to-End Encryption
+- Anonymous by design, accounts created and identified with generated User IDs
+- Screenshots are stored in the database and can be shared with anyone
