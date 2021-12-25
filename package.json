@@ -21,7 +21,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "npm run build && electron-builder"
   },
   "repository": {
     "type": "git",
