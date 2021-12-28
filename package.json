@@ -6,7 +6,7 @@
   "name": "secureshare",
   "description": "What is Secure Share? > A Decentralised App (DApp) for Sharing Secure End-to-End Encrypted (E2EE) Screenshots",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.js",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.1",
