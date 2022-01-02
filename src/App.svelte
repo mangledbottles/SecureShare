@@ -1,9 +1,11 @@
 <script lang="ts">
 	export let name: string;
+	import Chat from "./Chat.svelte";
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
+	<Chat />
 	<p>Svelte ElectronJS application is working!</p>
 </main>
 
