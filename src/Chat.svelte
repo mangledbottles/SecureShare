@@ -49,9 +49,6 @@
 </script>
 
 <div class="container">
-  <h1>Chat loaded</h1>
-  <input type="text" id="username" bind:value={username} />
-  <button on:click={setUsername}>Send</button>
   <h1>Add Contact</h1>
   <Autocomplete
   />
