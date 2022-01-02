@@ -69,7 +69,6 @@
   //       });
   //   }
 
-
   // AutoComplete component to search for user contact
   async function* getOptions(username) {
     let options = [];
@@ -93,11 +92,12 @@
     console.log({ selectedContact });
 
     let contacts = JSON.parse(localStorage.getItem("Contacts")) || [];
-    contacts.push(selectedContact);
-    localStorage.setItem("Contacts", JSON.stringify(contacts));
-    alert("Contact added successfully");
+    if (!(contacts.find((contact) => contact.name === selectedContact.name))) {
+      contacts.push(selectedContact);
+      localStorage.setItem("Contacts", JSON.stringify(contacts));
+    }
 
-    console.log({ localStorage });
+    alert("Contact added successfully");
 
     // Remove user input selection forn
     selectedContact = [];
