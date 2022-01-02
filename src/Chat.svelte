@@ -1,4 +1,8 @@
 <script>
+  // Import dependencies
+  import { Button } from "attractions";
+  import { Autocomplete } from "attractions";
+
   import GUN from "gun";
   const gun = new GUN();
 
@@ -45,4 +49,8 @@
   <h1>Chat loaded</h1>
   <input type="text" id="username" bind:value={username} />
   <button on:click={setUsername}>Send</button>
+  <h1>Add Contact</h1>
+  <Autocomplete
+  />
+  <!-- <Button filled>Send Secure Share</Button> -->
 </div>
