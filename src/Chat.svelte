@@ -6,9 +6,8 @@
   import GUN from "gun";
   const gun = new GUN();
 
-//   import { user, userData } from "./User";
-
-//   console.log({ user, userData });
+  //   import { user, userData } from "./User";
+  //   console.log({ user, userData });
 
   let username = "Mark";
 
@@ -22,21 +21,25 @@
 
   function startGun() {
     console.log("starting gun");
-    gun.get(username).put({
+    gun.get("Users").get(username).put({
       name: "Mark",
       email: "mark@gun.eco",
     });
 
-    gun.get(username).on(async (data, key) => {
-      console.log("realtime updates:", data);
-      console.log({ key });
-      let account = await gun.get(username).get("account");
-      console.log("account", account);
-    });
+    gun
+      .get("Users")
+      .get(username)
+      .on(async (data, key) => {
+        console.log("realtime updates:", data);
+        console.log({ key });
+        let account = await gun.get("Users").get(username).get("account");
+        console.log("account", account);
+      });
 
     setInterval(() => {
       let index = new Date().toISOString();
       gun
+        .get("Users")
         .get(username)
         .get("account")
         .get(index)
