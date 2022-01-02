@@ -46,11 +46,29 @@
         .put({ details: Math.random() });
     }, 4000);
   }
+  // AutoComplete component to search for user contact
+  async function* getOptions(username) {
+    let options = [];
+
+    await gun
+      .get("Users")
+      .get(username)
+      .on((user, key) => {
+        console.log({ user, key });
+        options.push({
+          name: user.name,
+          details: `Unique Identifier ${user.id}`,
+        });
+      });
+
+    yield options;
+  }
 </script>
 
 <div class="container">
   <h1>Add Contact</h1>
   <Autocomplete
+    {getOptions}
   />
   <!-- <Button filled>Send Secure Share</Button> -->
 </div>
