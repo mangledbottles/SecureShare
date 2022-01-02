@@ -63,12 +63,31 @@
 
     yield options;
   }
+
+  // When a user selects a contact, store the contact's public key to local storage
+  function onContactSelection() {
+    console.log({ selectedContact });
+
+    let contacts = JSON.parse(localStorage.getItem("Contacts")) || [];
+    contacts.push(selectedContact);
+    localStorage.setItem("Contacts", JSON.stringify(contacts));
+    alert("Contact added successfully");
+
+    console.log({ localStorage });
+
+    // Remove user input selection forn
+    selectedContact = [];
+  }
+
+  let selectedContact = [];
 </script>
 
 <div class="container">
   <h1>Add Contact</h1>
   <Autocomplete
     {getOptions}
+    on:change={onContactSelection}
+    selection={selectedContact}
   />
   <!-- <Button filled>Send Secure Share</Button> -->
 </div>
