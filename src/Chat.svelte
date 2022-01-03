@@ -70,6 +70,7 @@
   //   }
 
   // AutoComplete component to search for user contact
+  let currentChosenContact = [];
   async function* getOptions(username) {
     let options = [];
 
@@ -78,6 +79,10 @@
       .get(username)
       .on((user, key) => {
         console.log({ user, key });
+
+        // Set the current chosen contact
+        currentChosenContact = user;
+
         options.push({
           name: user.name,
           details: `Unique Identifier ${user.id}`,
@@ -89,11 +94,11 @@
 
   // When a user selects a contact, store the contact's public key to local storage
   function onContactSelection() {
-    console.log({ selectedContact });
+    console.log({ currentChosenContact })
 
     let contacts = JSON.parse(localStorage.getItem("Contacts")) || [];
-    if (!(contacts.find((contact) => contact.name === selectedContact.name))) {
-      contacts.push(selectedContact);
+    if (!(contacts.find((contact) => contact.name === currentChosenContact.name))) {
+      contacts.push(currentChosenContact);
       localStorage.setItem("Contacts", JSON.stringify(contacts));
     }
 
