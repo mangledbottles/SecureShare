@@ -6,6 +6,14 @@
   import { v4 as uuidv4 } from "uuid";
 
   let username, password;
+
+  function login() {
+    console.log("login");
+    console.log({ username, password })
+    user.auth(username, password, ({ err }) => err && alert(err));
+
+    // console.log(user.map((u) => u.username));
+  }
 </script>
 
 <label for="username">Username</label>
