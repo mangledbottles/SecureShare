@@ -4,9 +4,8 @@
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+	<h1>{name}</h1>
 	<Chat />
-	<p>Svelte ElectronJS application is working!</p>
 </main>
 
 <style>
