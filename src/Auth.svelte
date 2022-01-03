@@ -14,6 +14,29 @@
 
     // console.log(user.map((u) => u.username));
   }
+
+  function signup() {
+    console.log("signup");
+
+    username = uuidv4();
+    password = randomWords({
+      exactly: 8,
+      join: " ",
+      formatter: (word) => word.toUpperCase(),
+    });
+
+    console.log({ username, password });
+
+    user.create(username, password, ({ err }) => {
+      if (err) {
+        alert(err);
+      } else {
+        console.log({ username, password, msg: 'used'})
+        console.log("signup success");
+        login();
+      }
+    });
+  }
 </script>
 
 <label for="username">Username</label>
