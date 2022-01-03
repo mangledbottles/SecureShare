@@ -1,10 +1,11 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
-require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, '../node_modules', '.bin', 'electron'),
-  awaitWriteFinish: true,
-});
+const production = (process.env.NODE_ENV === "production");
+
+if (!production) {
+  require("electron-reload")(__dirname, { awaitWriteFinish: true });
+}
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow();
