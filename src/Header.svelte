@@ -17,11 +17,47 @@
   import { Popover, Button, PopoverButton } from "attractions";
   import Clipboard from "svelte-clipboard";
 
+  function continueToApplication() {
+    userPassphrase.set("");
+  }
 </script>
 
 <header>
   <h1>{name}</h1>
   {#if $username}
+  {#if $userPassphrase}
+    <Subhead>Save your User ID (username) and passphrase</Subhead>
+    <Subhead
+      >You can share your User ID with anyone, but keep your passphrase secure.
+      Write it onto a piece of paper or save it to a file. You can copy both
+      User ID and passphrase by clicking on them.</Subhead
+    >
+    <br />
+    <Clipboard
+      text={$username}
+      let:copy
+      on:copy={() => {
+        console.log("copied");
+      }}
+    >
+      <Button on:click={copy}>Username: {$username}</Button>
+    </Clipboard>
+
+    <Clipboard
+      text={$userPassphrase}
+      let:copy
+      on:copy={() => {
+        console.log("copied");
+      }}
+    >
+      <Button on:click={copy}>Passphrase: {$userPassphrase}</Button>
+      <Label small
+        >This passphrase is not recoverable so ensure to write down</Label
+      >
+    </Clipboard>
+
+    <Button filled on:click={continueToApplication}>Continue</Button>
+  {:else if $username}
     <div class="user-bio">
       <span>Hello <strong>{$username}</strong></span>
 
