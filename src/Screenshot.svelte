@@ -7,6 +7,17 @@
   // const Jimp = require("jimp");
 
   let screenshotImage;
+  let items = [{ value: "1", label: "one" }];
+
+  let getScreenshotSources = () => {
+    return new Promise((resolve, reject) => {
+      desktopCapturer
+        .getSources({ types: ["window", "screen"] })
+        .then(async (sources) => {
+          return resolve(sources);
+        });
+    });
+  };
 
   function fullscreenScreenshot(callback, imageFormat) {
     imageFormat = imageFormat || "image/jpeg";
