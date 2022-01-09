@@ -16,8 +16,6 @@
   }
 
   function signup() {
-    console.log("signup");
-
     username = uuidv4();
     password = randomWords({
       exactly: 8,
@@ -25,16 +23,11 @@
       formatter: (word) => word.toUpperCase(),
     });
 
-    console.log({ username, password });
-
     user.create(username, password, ({ err }) => {
-      if (err) {
-        alert(err);
-      } else {
-        console.log({ username, password, msg: 'used'})
-        console.log("signup success");
-        login();
-      }
+      if (err) return alert(err);
+
+      console.log("Signup success");
+      login();
     });
   }
 </script>
