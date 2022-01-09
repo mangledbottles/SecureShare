@@ -4,11 +4,13 @@
   import Header from "./Header.svelte";
   import Chat from "./Chat.svelte";
   import Auth from "./Auth.svelte";
+  import Screenshot from './Screenshot.svelte';
 </script>
 
 <main>
   <Header name={name} />
   {#if $username}
+    <Screenshot />
     <Chat />
   {/if}
   {#if !$username}
