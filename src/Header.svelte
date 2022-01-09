@@ -16,13 +16,7 @@
   import { PopoverPositions } from "attractions/popover";
   import { Popover, Button, PopoverButton } from "attractions";
   import Clipboard from "svelte-clipboard";
-  //   import { clipboard } from 'electron';
 
-  //   function copyUsername() {
-  //       console.log("copying username");
-  //     this.clipboard.writeText(username);
-  // clipboard.writeText(username);
-  //   }
 </script>
 
 <header>
