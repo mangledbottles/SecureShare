@@ -5,6 +5,9 @@
   import randomWords from "random-words";
   import { v4 as uuidv4 } from "uuid";
 
+  // Import Attractions UI Components
+  import { Card, Button, FormField, TextField, Divider } from "attractions";
+
   let username, password;
 
   function login() {
