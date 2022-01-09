@@ -32,11 +32,28 @@
   }
 </script>
 
-<label for="username">Username</label>
-<input name="username" bind:value={username} minlength="3" maxlength="32" />
+<Card>
+  <FormField>
+    <Button filled on:click={signup}>Create Account</Button>
+  </FormField>
+</Card>
 
-<label for="password">Password</label>
-<input name="password" bind:value={password} type="password" />
+<Divider text="OR" />
 
-<button class="login" on:click={login}>Login</button>
-<button on:click={signup}>Sign Up</button>
+<Card>
+  <FormField name="Username" help="" required>
+    <TextField bind:value={username} />
+  </FormField>
+
+  <FormField
+    name="Password"
+    help="8 word passphrase, seperated by a space"
+    required
+  >
+    <TextField bind:value={password} />
+  </FormField>
+
+  <FormField>
+    <Button filled class="login" on:click={login}>Login</Button>
+  </FormField>
+</Card>
