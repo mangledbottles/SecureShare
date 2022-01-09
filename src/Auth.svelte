@@ -30,8 +30,10 @@
       if (err) return alert(err);
 
       console.log("Signup success");
+      userPassphrase.set(password);
       login();
     });
+
   }
 </script>
 
