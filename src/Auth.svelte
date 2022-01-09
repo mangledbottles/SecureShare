@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { user } from "./User";
+  import { user, userPassphrase } from "./User";
 
   // Import dependencies
   import randomWords from "random-words";

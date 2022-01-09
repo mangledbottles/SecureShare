@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { username, user } from "./User";
+  // Import dependencies
+  import { username, user, userPassphrase } from "./User";
+
   export let name: string;
   function signout() {
     console.log("signing out");
