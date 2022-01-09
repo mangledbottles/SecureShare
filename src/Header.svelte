@@ -23,8 +23,11 @@
 </script>
 
 <header>
-  <h1>{name}</h1>
-  {#if $username}
+  <h1>{name}
+    <Chip small>Decentralysed End-to-End Encrypted Sharing Platform</Chip>
+  </h1>
+
+
   {#if $userPassphrase}
     <Subhead>Save your User ID (username) and passphrase</Subhead>
     <Subhead
@@ -83,8 +86,6 @@
     </div>
 
     <button class="signout-button" on:click={signout}>Sign Out</button>
-  {:else}
-    <h3>Gun.js Chat</h3>
   {/if}
 </header>
 
