@@ -11,7 +11,7 @@
   let username, password;
 
   function login() {
-    user.auth(username, password, ({ err }) => {
+    user.auth(username, password.toUpperCase(), ({ err }) => {
       if (err) return alert(err);
 
       console.log("Login success");
