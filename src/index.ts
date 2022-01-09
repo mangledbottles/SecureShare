@@ -8,7 +8,12 @@ if (!production) {
 }
 
 app.on("ready", () => {
-  const mainWindow = new BrowserWindow();
+  const mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
+  });
   mainWindow.loadFile(path.join(__dirname, "../public/index.html"));
   mainWindow.webContents.openDevTools();
 });
