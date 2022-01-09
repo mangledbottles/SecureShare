@@ -1,3 +1,5 @@
+<script>
+  import { Button } from "attractions";
   const { desktopCapturer } = require("electron");
   let screenshotImage;
   function fullscreenScreenshot(callback, imageFormat) {
@@ -98,3 +100,6 @@
     }, "image/png");
   }
 </script>
+
+<Button on:click={takeScreenshot}>Take Screenshot</Button>
+<img src={screenshotImage} alt="screenshot" />
