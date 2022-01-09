@@ -8,11 +8,11 @@
   let username, password;
 
   function login() {
-    console.log("login");
-    console.log({ username, password })
-    user.auth(username, password, ({ err }) => err && alert(err));
+    user.auth(username, password, ({ err }) => {
+      if (err) return alert(err);
 
-    // console.log(user.map((u) => u.username));
+      console.log("Login success");
+    });
   }
 
   function signup() {
