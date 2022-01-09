@@ -1,7 +1,10 @@
 <script>
   import { Button } from "attractions";
+
   const { desktopCapturer } = require("electron");
+  const Jimp = require("jimp");
   let screenshotImage;
+
   function fullscreenScreenshot(callback, imageFormat) {
     imageFormat = imageFormat || "image/jpeg";
 

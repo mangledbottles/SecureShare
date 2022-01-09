@@ -2,6 +2,7 @@
   "dependencies": {
     "electron-reload": "^2.0.0-alpha.1",
     "gun": "^0.2020.1235",
+    "jimp": "^0.16.1",
     "random-words": "^1.1.0",
     "sirv-cli": "^1.0.14",
     "uuid": "^8.3.2"
