@@ -30,7 +30,6 @@
     imageFormat = imageFormat || "image/jpeg";
 
     let handleStream = (stream) => {
-      console.log({ stream });
 
       // Create hidden video tag
       var video = document.createElement("video");
@@ -94,7 +93,7 @@
                 video: {
                   mandatory: {
                     chromeMediaSource: "desktop",
-                    chromeMediaSourceId: source.id,
+                    chromeMediaSourceId: selectedScreenshotSource,
                     minWidth: 1280,
                     maxWidth: 4000,
                     minHeight: 720,
@@ -123,6 +122,8 @@
       console.log(base64);
     }, "image/png");
   }
+
+  let selectedScreenshotSource = "";
 </script>
 
 <RadioGroup
@@ -133,3 +134,8 @@
     console.log(selectedScreenshotSource);
   }}
 />
+<Button
+  on:click={takeScreenshot}
+  disabled={selectedScreenshotSource == ""}
+  filled>Take Screenshot</Button
+>
