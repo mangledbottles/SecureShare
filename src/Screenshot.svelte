@@ -19,6 +19,13 @@
     });
   };
 
+  getScreenshotSources().then((sources) => {
+    console.log(sources);
+    items = sources.map(({ id, name }) => {
+      return { value: id, label: name };
+    });
+  });
+
   function fullscreenScreenshot(callback, imageFormat) {
     imageFormat = imageFormat || "image/jpeg";
 
@@ -118,5 +125,11 @@
   }
 </script>
 
-<Button on:click={takeScreenshot}>Take Screenshot</Button>
-<img src={screenshotImage} alt="screenshot" />
+<RadioGroup
+  {items}
+  name="numbers"
+  on:change={(e) => {
+    selectedScreenshotSource = e.detail.value;
+    console.log(selectedScreenshotSource);
+  }}
+/>
