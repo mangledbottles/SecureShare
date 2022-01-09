@@ -2,6 +2,9 @@
   // Import dependencies
   import { username, user, userPassphrase } from "./User";
 
+  // Import components from Attractrions
+  import { Subhead, Label, Chip } from "attractions";
+
   export let name: string;
   function signout() {
     console.log("signing out");
