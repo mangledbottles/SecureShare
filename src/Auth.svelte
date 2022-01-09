@@ -16,7 +16,7 @@
   }
 
   function signup() {
-    username = uuidv4();
+    username = uuidv4().split("-").join("");
     password = randomWords({
       exactly: 8,
       join: " ",
