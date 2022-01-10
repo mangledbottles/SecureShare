@@ -31,7 +31,6 @@
     imageFormat = imageFormat || "image/jpeg";
 
     let handleStream = (stream) => {
-
       // Create hidden video tag
       var video = document.createElement("video");
       video.style.cssText = "position:absolute;top:-10000px;left:-10000px;";
@@ -112,19 +111,19 @@
       });
   }
 
-  async function crop() {
-
+  async function crop(screenshot) {
     let encondedImageBuffer = Buffer.from(
-      screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
+      screenshot.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
       "base64"
     );
 
     const image = await Jimp.read(encondedImageBuffer);
-    await image.crop(100, 50, 470, 270).write("./crop.jpg");
+    const crop = await image
+      .crop(100, 50, 470, 270)
+      .getBase64Async("image/png");
 
     // Update interface with cropped image
-    screenshotImage = "../crop.jpg";
-
+    croppedImage = crop;
   }
 
   function takeScreenshot() {
