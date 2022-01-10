@@ -7,6 +7,7 @@
   const Jimp = require("jimp");
 
   let screenshotImage = null;
+  let croppedImage = null;
   let items = [{ value: "1", label: "one" }];
 
   let getScreenshotSources = () => {
@@ -156,6 +157,11 @@
   <Card>
     <img
       src={screenshotImage}
+      alt="screenshot"
+      style="width: 100%; height: 100%; object-fit: contain;"
+    />
+    <img
+      src={croppedImage}
       alt="screenshot"
       style="width: 100%; height: 100%; object-fit: contain;"
     />
