@@ -123,7 +123,7 @@
     }, "image/png");
   }
 
-  let selectedScreenshotSource = "";
+  let selectedScreenshotSource = null;
 </script>
 
 <RadioGroup
