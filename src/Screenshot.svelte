@@ -127,10 +127,11 @@
   }
 
   function takeScreenshot() {
-    fullscreenScreenshot(function (base64) {
+    fullscreenScreenshot(async (base64) => {
       screenshotImage = base64;
-      crop();
-      console.log(base64);
+      await crop(base64);
+
+      console.log({ screenshotImage });
     }, "image/png");
   }
 
