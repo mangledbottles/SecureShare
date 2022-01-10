@@ -4,9 +4,9 @@
   const { desktopCapturer } = require("electron");
   /** TODO: Implement Jimp to handle image processing */
 
-  // const Jimp = require("jimp");
+  const Jimp = require("jimp");
 
-  let screenshotImage;
+  let screenshotImage = null;
   let items = [{ value: "1", label: "one" }];
 
   let getScreenshotSources = () => {
@@ -111,14 +111,25 @@
       });
   }
 
+  async function crop() {
+
+    let encondedImageBuffer = Buffer.from(
+      screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
+      "base64"
+    );
+
+    const image = await Jimp.read(encondedImageBuffer);
+    await image.crop(100, 50, 470, 270).write("./crop.jpg");
+
+    // Update interface with cropped image
+    screenshotImage = "../crop.jpg";
+
+  }
+
   function takeScreenshot() {
     fullscreenScreenshot(function (base64) {
-      var encondedImageBuffer = Buffer.from(
-        base64.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
-        "base64"
-      );
-
       screenshotImage = base64;
+      crop();
       console.log(base64);
     }, "image/png");
   }
