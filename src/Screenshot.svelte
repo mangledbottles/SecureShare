@@ -139,10 +139,14 @@
   disabled={selectedScreenshotSource == ""}
   filled>Take Screenshot</Button
 >
-<Card>
-  <img
-    src={screenshotImage}
-    alt="screenshot"
-    style="width: 100%; height: 100%; object-fit: contain;"
-  />
-</Card>
+
+<!-- Conditionally render screenshot image -->
+{#if screenshotImage}
+  <Card>
+    <img
+      src={screenshotImage}
+      alt="screenshot"
+      style="width: 100%; height: 100%; object-fit: contain;"
+    />
+  </Card>
+{/if}
