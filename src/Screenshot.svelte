@@ -175,6 +175,25 @@
           e.target.getBoundingClientRect().width;
         clickX = Math.round(clickX * scaleImage);
         clickY = Math.round(clickY * scaleImage);
+
+        if (croppedImageDimensions.x == 0 && croppedImageDimensions.y == 0) {
+          // Crop image according to the coordinates
+          croppedImageDimensions.x = clickX;
+          croppedImageDimensions.y = clickY;
+        } else {
+          croppedImageDimensions.width = clickX - croppedImageDimensions.x;
+          croppedImageDimensions.height = clickY - croppedImageDimensions.y;
+
+          console.log({ croppedImageDimensions });
+
+          // Crop image according to coordinates
+          crop(croppedImageDimensions);
+
+          // Reset coordinates
+          croppedImageDimensions.x = 0;
+          croppedImageDimensions.y = 0;
+        }
+
         console.log({ x: clickX, y: clickY });
       }}
     />
