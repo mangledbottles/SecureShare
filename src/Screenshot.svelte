@@ -1,13 +1,16 @@
-<script>
+<script lang="ts">
+  // Import dependencies
   import { Button, RadioGroup, Card } from "attractions";
-
   const { desktopCapturer } = require("electron");
-  /** TODO: Implement Jimp to handle image processing */
+  const Jimp = require("jimp");
 
-  // const Jimp = require("jimp");
-
-  let screenshotImage;
-  let items = [{ value: "1", label: "one" }];
+  let screenshotImage = null;
+  let screenshotImageEncoded = null;
+  let selectedScreenshotSource = null;
+  let originalScreenshotDimensions: Int[] = [0, 0];
+  let croppedImage = null;
+  let croppedImageDimensions = { x: 0, y: 0, width: 0, height: 0 };
+  let items = [{ value: "1", label: " " }];
 
   let getScreenshotSources = () => {
     return new Promise((resolve, reject) => {
@@ -30,7 +33,6 @@
     imageFormat = imageFormat || "image/jpeg";
 
     let handleStream = (stream) => {
-
       // Create hidden video tag
       var video = document.createElement("video");
       video.style.cssText = "position:absolute;top:-10000px;left:-10000px;";
@@ -111,19 +113,34 @@
       });
   }
 
+  async function crop({ x, y, width, height }) {
+    const image = await Jimp.read(screenshotImageEncoded);
+
+    const crop = await image
+      .crop(x, y, width, height)
+      .getBase64Async("image/png");
+
+    console.log({ cropSpecs: image.bitmap });
+    // Update interface with cropped image
+    croppedImage = crop;
+  }
+
   function takeScreenshot() {
-    fullscreenScreenshot(function (base64) {
-      var encondedImageBuffer = Buffer.from(
-        base64.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
+    fullscreenScreenshot(async (base64) => {
+      screenshotImage = base64;
+
+      // Convert base64 to image
+      screenshotImageEncoded = Buffer.from(
+        screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
         "base64"
       );
 
-      screenshotImage = base64;
-      console.log(base64);
+      // Get original screenshot dimensions and update global variable
+      const image = await Jimp.read(screenshotImageEncoded);
+      originalScreenshotDimensions = [image.bitmap.width, image.bitmap.height];
+
     }, "image/png");
   }
-
-  let selectedScreenshotSource = null;
 </script>
 
 <RadioGroup
@@ -136,7 +153,7 @@
 />
 <Button
   on:click={takeScreenshot}
-  disabled={selectedScreenshotSource == ""}
+  disabled={selectedScreenshotSource == null}
   filled>Take Screenshot</Button
 >
 
@@ -145,6 +162,43 @@
   <Card>
     <img
       src={screenshotImage}
+      alt="screenshot"
+      style="width: 100%; height: 100%; object-fit: contain;"
+      on:click={(e) => {
+        // Get coordinates of click relative to image
+        let clickX = e.clientX - e.target.offsetLeft;
+        let clickY = e.clientY - e.target.getBoundingClientRect().top;
+
+        // Scale coordinates to original image
+        let scaleImage =
+          originalScreenshotDimensions[0] /
+          e.target.getBoundingClientRect().width;
+        clickX = Math.round(clickX * scaleImage);
+        clickY = Math.round(clickY * scaleImage);
+
+        if (croppedImageDimensions.x == 0 && croppedImageDimensions.y == 0) {
+          // Crop image according to the coordinates
+          croppedImageDimensions.x = clickX;
+          croppedImageDimensions.y = clickY;
+        } else {
+          croppedImageDimensions.width = clickX - croppedImageDimensions.x;
+          croppedImageDimensions.height = clickY - croppedImageDimensions.y;
+
+          console.log({ croppedImageDimensions });
+
+          // Crop image according to coordinates
+          crop(croppedImageDimensions);
+
+          // Reset coordinates
+          croppedImageDimensions.x = 0;
+          croppedImageDimensions.y = 0;
+        }
+
+        console.log({ x: clickX, y: clickY });
+      }}
+    />
+    <img
+      src={croppedImage}
       alt="screenshot"
       style="width: 100%; height: 100%; object-fit: contain;"
     />
