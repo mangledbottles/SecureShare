@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Button, RadioGroup, Card } from "attractions";
 
   const { desktopCapturer } = require("electron");
