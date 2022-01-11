@@ -7,6 +7,7 @@
   const Jimp = require("jimp");
 
   let screenshotImage = null;
+  let screenshotImageEncoded = null;
   let croppedImage = null;
   let items = [{ value: "1", label: "one" }];
 
@@ -132,6 +133,11 @@
       await crop(base64);
 
       console.log({ screenshotImage });
+      // Convert base64 to image
+      screenshotImageEncoded = Buffer.from(
+        screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
+        "base64"
+      );
     }, "image/png");
   }
 
