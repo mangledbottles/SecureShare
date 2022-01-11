@@ -8,6 +8,7 @@
 
   let screenshotImage = null;
   let screenshotImageEncoded = null;
+  let originalScreenshotDimensions: Int[] = [0, 0];
   let croppedImage = null;
   let items = [{ value: "1", label: "one" }];
 
@@ -138,6 +139,11 @@
         screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
         "base64"
       );
+
+      // Get original screenshot dimensions and update global variable
+      const image = await Jimp.read(screenshotImageEncoded);
+      originalScreenshotDimensions = [image.bitmap.width, image.bitmap.height];
+
     }, "image/png");
   }
 
