@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, screen } = require("electron");
 const path = require("path");
 
 const production = (process.env.NODE_ENV === "production");
@@ -12,7 +12,14 @@ app.on("ready", () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
+    // set width to match the size of the screen
+    width: screen.getPrimaryDisplay().size.width,
+    // set height to match the size of the screen
+    height: screen.getPrimaryDisplay().size.height,
+
+    frame: false,
+    transparent: true,
   });
   mainWindow.loadFile(path.join(__dirname, "../public/index.html"));
   mainWindow.webContents.openDevTools();
