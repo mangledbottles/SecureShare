@@ -114,12 +114,8 @@
   }
 
   async function crop(screenshot) {
-    let encondedImageBuffer = Buffer.from(
-      screenshot.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
-      "base64"
-    );
+    const image = await Jimp.read(screenshotImageEncoded);
 
-    const image = await Jimp.read(encondedImageBuffer);
     const crop = await image
       .crop(100, 50, 470, 270)
       .getBase64Async("image/png");
