@@ -9,6 +9,7 @@
   let selectedScreenshotSource = null;
   let originalScreenshotDimensions: Int[] = [0, 0];
   let croppedImage = null;
+  let croppedImageDimensions = { x: 0, y: 0, width: 0, height: 0 };
   let items = [{ value: "1", label: " " }];
 
   let getScreenshotSources = () => {
@@ -168,6 +169,12 @@
         let clickX = e.clientX - e.target.offsetLeft;
         let clickY = e.clientY - e.target.getBoundingClientRect().top;
 
+        // Scale coordinates to original image
+        let scaleImage =
+          originalScreenshotDimensions[0] /
+          e.target.getBoundingClientRect().width;
+        clickX = Math.round(clickX * scaleImage);
+        clickY = Math.round(clickY * scaleImage);
         console.log({ x: clickX, y: clickY });
       }}
     />
