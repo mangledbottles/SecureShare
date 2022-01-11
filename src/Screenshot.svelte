@@ -163,6 +163,13 @@
       src={screenshotImage}
       alt="screenshot"
       style="width: 100%; height: 100%; object-fit: contain;"
+      on:click={(e) => {
+        // Get coordinates of click relative to image
+        let clickX = e.clientX - e.target.offsetLeft;
+        let clickY = e.clientY - e.target.getBoundingClientRect().top;
+
+        console.log({ x: clickX, y: clickY });
+      }}
     />
     <img
       src={croppedImage}
