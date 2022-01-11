@@ -113,13 +113,14 @@
       });
   }
 
-  async function crop(screenshot) {
+  async function crop({ x, y, width, height }) {
     const image = await Jimp.read(screenshotImageEncoded);
 
     const crop = await image
-      .crop(100, 50, 470, 270)
+      .crop(x, y, width, height)
       .getBase64Async("image/png");
 
+    console.log({ cropSpecs: image.bitmap });
     // Update interface with cropped image
     croppedImage = crop;
   }
@@ -127,7 +128,6 @@
   function takeScreenshot() {
     fullscreenScreenshot(async (base64) => {
       screenshotImage = base64;
-      await crop(base64);
 
       // Convert base64 to image
       screenshotImageEncoded = Buffer.from(
