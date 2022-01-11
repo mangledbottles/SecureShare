@@ -1,16 +1,15 @@
 <script lang="ts">
+  // Import dependencies
   import { Button, RadioGroup, Card } from "attractions";
-
   const { desktopCapturer } = require("electron");
-  /** TODO: Implement Jimp to handle image processing */
-
   const Jimp = require("jimp");
 
   let screenshotImage = null;
   let screenshotImageEncoded = null;
+  let selectedScreenshotSource = null;
   let originalScreenshotDimensions: Int[] = [0, 0];
   let croppedImage = null;
-  let items = [{ value: "1", label: "one" }];
+  let items = [{ value: "1", label: " " }];
 
   let getScreenshotSources = () => {
     return new Promise((resolve, reject) => {
@@ -129,7 +128,6 @@
       screenshotImage = base64;
       await crop(base64);
 
-      console.log({ screenshotImage });
       // Convert base64 to image
       screenshotImageEncoded = Buffer.from(
         screenshotImage.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
@@ -142,8 +140,6 @@
 
     }, "image/png");
   }
-
-  let selectedScreenshotSource = null;
 </script>
 
 <RadioGroup
@@ -156,7 +152,7 @@
 />
 <Button
   on:click={takeScreenshot}
-  disabled={selectedScreenshotSource == ""}
+  disabled={selectedScreenshotSource == null}
   filled>Take Screenshot</Button
 >
 
