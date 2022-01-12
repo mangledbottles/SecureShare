@@ -53,20 +53,27 @@
   async function* getOptions(selectedOption) {
     let options = [];
 
-    await gun
-      .get("Users")
-      .get(username)
-      .on((user, key) => {
-        console.log({ user, key });
 
-        // Set the current chosen contact
-        currentChosenContact = user;
+    await gun.get(`~@${selectedOption}`).once((data, userId) => {
+      if (!data) return; // if no result, return
 
-        options.push({
-          name: user.name,
-          details: `Unique Identifier ${user.id}`,
-        });
+      console.log({ data, key: userId });
+
+      // Set the current chosen contact
+      // remove first 2 characters of userId
+
+
+      selectedContact.set(userId.substring(2));
+      console.log({ selectedContact})
+      console.log({ selectedContact: $selectedContact });
+
+      options.push({
+        name: userId,
+        details: `Unique Identifier ${data._}`,
       });
+
+      console.log({ key: userId });
+    });
 
     yield options;
   }
