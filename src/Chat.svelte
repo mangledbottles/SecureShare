@@ -14,6 +14,13 @@
     startGun();
   }
 
+  // Load screenshots received from Gun, listen for incoming
+  gun
+    .get("screenshots")
+    .get($username)
+    .map()
+    .once((data, id) => {
+      receivedScreenshots.set([...$receivedScreenshots, data]);
     });
 
     gun
