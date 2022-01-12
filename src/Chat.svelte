@@ -3,20 +3,13 @@
   import { Button } from "attractions";
   import { Autocomplete } from "attractions";
 
-  import GUN from "gun";
-  const gun = new GUN({
-    peers: [
-      "https://gunjs.herokuapp.com/gun",
-      "https://gun-server-serve.herokuapp.com/",
-      "http://gun-manhattan.herokuapp.com/gun",
-    ],
-  });
 
   import {
     username,
     receivedScreenshots,
     selectedScreenshot,
     selectedContact,
+    db
   } from "./User";
 
   // on button click, set username
@@ -26,7 +19,7 @@
   }
 
   // Load screenshots received from Gun, listen for incoming
-  gun
+  db
     .get("screenshots")
     .get($username)
     .map()
@@ -46,7 +39,7 @@
 
     // const receivingContact = ($selectedContact).splice(2);
 
-    gun
+    db
       .get("screenshots")
       .get($selectedContact)
       .get(index)
@@ -63,7 +56,7 @@
     let options = [];
 
 
-    await gun.get(`~@${selectedOption}`).once((data, userId) => {
+    await db.get(`~@${selectedOption}`).once((data, userId) => {
       if (!data) return; // if no result, return
 
       console.log({ data, key: userId });
