@@ -71,7 +71,9 @@
     console.log({ currentChosenContact })
 
     let contacts = JSON.parse(localStorage.getItem("Contacts")) || [];
-    if (!(contacts.find((contact) => contact.name === currentChosenContact.name))) {
+    if (
+      !contacts.find((contact) => contact.name === currentChosenContact.name)
+    ) {
       contacts.push(currentChosenContact);
       localStorage.setItem("Contacts", JSON.stringify(contacts));
     }

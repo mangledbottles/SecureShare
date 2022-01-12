@@ -62,7 +62,6 @@
     <Button filled on:click={continueToApplication}>Continue</Button>
   {:else if $username}
     <div class="user-bio">
-      <span>Hello <strong>{$username}</strong></span>
 
       <Popover position={PopoverPositions.BOTTOM}>
         <Clipboard
@@ -79,13 +78,14 @@
         </Clipboard>
       </Popover>
 
+    <button class="signout-button" on:click={signout}>Sign Out</button>
+
       <!-- <img
         src={`https://avatars.dicebear.com/api/initials/${$username}.svg`}
         alt="avatar"
       /> -->
     </div>
 
-    <button class="signout-button" on:click={signout}>Sign Out</button>
   {/if}
 </header>
 
