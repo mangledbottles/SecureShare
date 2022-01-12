@@ -4,6 +4,8 @@
   const { desktopCapturer } = require("electron");
   const Jimp = require("jimp");
 
+  import { selectedScreenshot } from "./User";
+
   let screenshotImage = null;
   let screenshotImageEncoded = null;
   let selectedScreenshotSource = null;
@@ -116,13 +118,13 @@
   async function crop({ x, y, width, height }) {
     const image = await Jimp.read(screenshotImageEncoded);
 
-    const crop = await image
+    croppedImage = await image
       .crop(x, y, width, height)
       .getBase64Async("image/png");
 
-    console.log({ cropSpecs: image.bitmap });
-    // Update interface with cropped image
-    croppedImage = crop;
+    selectedScreenshot.set(croppedImage);
+
+    console.log({croppedImage});
   }
 
   function takeScreenshot() {
@@ -138,7 +140,6 @@
       // Get original screenshot dimensions and update global variable
       const image = await Jimp.read(screenshotImageEncoded);
       originalScreenshotDimensions = [image.bitmap.width, image.bitmap.height];
-
     }, "image/png");
   }
 </script>
