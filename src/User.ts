@@ -4,7 +4,7 @@ import 'gun/axe';
 import { writable } from 'svelte/store';
 
 // Database
-export const db = GUN();
+export const db = GUN({ peers: ['https://gunjs.herokuapp.com/gun', 'http://gun-manhattan.herokuapp.com/gun'] });
 
 // Gun User
 export const user = db.user().recall({ sessionStorage: true });
@@ -15,6 +15,15 @@ export const username = writable('');
 // User state
 export const userPassphrase = writable('');
 
+// Received Images
+export const receivedScreenshots = writable([]);
+
+// Seleted Image to send
+export const selectedScreenshot = writable('');
+
+// Selected Contact to send Screenshot to
+export const selectedContact = writable('');
+  
 user.get('alias').on(v => username.set(v))
 
 db.on('auth', async (event) => {

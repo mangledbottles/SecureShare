@@ -3,15 +3,14 @@
   import { Button } from "attractions";
   import { Autocomplete } from "attractions";
 
-  import GUN from "gun";
-  const gun = new GUN();
 
-  //   import { user, userData } from "./User";
-  //   console.log({ user, userData });
-
-  let username = "Mark";
-
-  //   if(username) startGun();
+  import {
+    username,
+    receivedScreenshots,
+    selectedScreenshot,
+    selectedContact,
+    db
+  } from "./User";
 
   // on button click, set username
   function setUsername() {
@@ -19,75 +18,64 @@
     startGun();
   }
 
-  function startGun() {
-    console.log("starting gun");
-    gun.get("Users").get(username).put({
-      name: "Mark",
-      email: "mark@gun.eco",
+  // Load screenshots received from Gun, listen for incoming
+  db
+    .get("screenshots")
+    .get($username)
+    .map()
+    .once((data, id) => {
+      console.log({ data, id, message: "screenshots loaded" });
+      receivedScreenshots.set([...$receivedScreenshots, data]);
     });
 
-    gun
-      .get("Users")
-      .get(username)
-      .on(async (data, key) => {
-        console.log("realtime updates:", data);
-        console.log({ key });
-        let account = await gun.get("Users").get(username).get("account");
-        console.log("account", account);
+  // Send screenshot to Gun user
+  function sendMessage() {
+    console.log("sending message");
+    const index = new Date().toISOString();
+    console.log({ username, uusername: $username });
+    console.log(
+      `Sending message in 'screenshots' to ${$selectedContact} at index ${index} from ${$username}`
+    );
+
+    // const receivingContact = ($selectedContact).splice(2);
+
+    db
+      .get("screenshots")
+      .get($selectedContact)
+      .get(index)
+      .put({
+        image: $selectedScreenshot,
+        message: `Heres a screenshot from ${$username}`,
+        from: `${$username}`,
       });
-
-    setInterval(() => {
-      let index = new Date().toISOString();
-      gun
-        .get("Users")
-        .get(username)
-        .get("account")
-        .get(index)
-        .put({ details: Math.random() });
-    }, 4000);
   }
-
-  gun.get("Users").get("mark").put({
-    name: "Mark",
-    PublicKey: "XYZ934820KJH",
-    id: "f2275fca-1511-4f04-af6d-83841a78eeb4",
-  });
-
-  gun.get("Users").get("omni").put({
-    name: "Omni",
-    PublicKey: "ABC9493890JJIS",
-    id: "808982cf-7209-4fc4-82b3-5105204ce306",
-  });
-
-  // Gun map over Users and get all the keys
-  //   async function* getOptions(username) {
-  //     gun
-  //       .get("Users")
-  //       .map()
-  //       .once((user, key) => {
-  //           console.log({ user, key });
-  //       });
-  //   }
 
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
-  async function* getOptions(username) {
+  async function* getOptions(selectedOption) {
     let options = [];
 
-    await gun
-      .get("Users")
-      .get(username)
-      .on((user, key) => {
-        console.log({ user, key });
 
-        // Set the current chosen contact
-        currentChosenContact = user;
+    await db.get(`~@${selectedOption}`).once((data, userId) => {
+      if (!data) return; // if no result, return
 
-        options.push({
-          name: user.name,
-          details: `Unique Identifier ${user.id}`,
-        });
+      console.log({ data, key: userId });
+
+      // Set the current chosen contact
+      // remove first 2 characters of userId
+
+
+      selectedContact.set(userId.substring(2));
+      console.log({ selectedContact})
+      console.log({ selectedContact: $selectedContact });
+
+      options.push({
+        name: userId,
+        details: `Unique Identifier ${data._}`,
       });
+
+      console.log({ key: userId });
+    });
 
     yield options;
   }
@@ -97,7 +85,9 @@
     console.log({ currentChosenContact })
 
     let contacts = JSON.parse(localStorage.getItem("Contacts")) || [];
-    if (!(contacts.find((contact) => contact.name === currentChosenContact.name))) {
+    if (
+      !contacts.find((contact) => contact.name === currentChosenContact.name)
+    ) {
       contacts.push(currentChosenContact);
       localStorage.setItem("Contacts", JSON.stringify(contacts));
     }
@@ -105,10 +95,10 @@
     alert("Contact added successfully");
 
     // Remove user input selection forn
-    selectedContact = [];
+    selectedOption = [];
   }
 
-  let selectedContact = [];
+  let selectedOption = [];
 </script>
 
 <div class="container">
@@ -116,7 +106,14 @@
   <Autocomplete
     {getOptions}
     on:change={onContactSelection}
-    selection={selectedContact}
+    selection={selectedOption}
   />
-  <!-- <Button filled>Send Secure Share</Button> -->
+  <Button filled on:click={sendMessage}>Send Secure Share</Button>
+
+  <!-- for each image in array receivedScreenshots display in svelte -->
+  <div class="screenshots">
+    {#each $receivedScreenshots as screenshot}
+      <img src={screenshot.image} alt="screenshot" />
+    {/each}
+  </div>
 </div>

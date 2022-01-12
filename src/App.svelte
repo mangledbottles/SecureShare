@@ -1,6 +1,6 @@
 <script lang="ts">
   export let name: string;
-  import { username, user } from "./User";
+  import { username, user,userPassphrase } from "./User";
   import Header from "./Header.svelte";
   import Chat from "./Chat.svelte";
   import Auth from "./Auth.svelte";
@@ -9,7 +9,7 @@
 
 <main>
   <Header name={name} />
-  {#if $username}
+  {#if $username && $userPassphrase == ''}
     <Screenshot />
     <Chat />
   {/if}
