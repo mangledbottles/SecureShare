@@ -6,12 +6,7 @@
   import GUN from "gun";
   const gun = new GUN();
 
-  //   import { user, userData } from "./User";
-  //   console.log({ user, userData });
-
-  let username = "Mark";
-
-  //   if(username) startGun();
+  import { username, receivedScreenshots, selectedScreenshot } from "./User";
 
   // on button click, set username
   function setUsername() {
