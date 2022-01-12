@@ -45,7 +45,7 @@
 
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
-  async function* getOptions(username) {
+  async function* getOptions(selectedOption) {
     let options = [];
 
     await gun
@@ -81,10 +81,10 @@
     alert("Contact added successfully");
 
     // Remove user input selection forn
-    selectedContact = [];
+    selectedOption = [];
   }
 
-  let selectedContact = [];
+  let selectedOption = [];
 </script>
 
 <div class="container">
@@ -92,7 +92,7 @@
   <Autocomplete
     {getOptions}
     on:change={onContactSelection}
-    selection={selectedContact}
+    selection={selectedOption}
   />
   <Button filled on:click={sendMessage}>Send Secure Share</Button>
 
