@@ -15,6 +15,12 @@ export const username = writable('');
 // User state
 export const userPassphrase = writable('');
 
+// Received Images
+export const receivedScreenshots = writable([]);
+
+// Seleted Image to send
+export const selectedScreenshot = writable(null);
+  
 user.get('alias').on(v => username.set(v))
 
 db.on('auth', async (event) => {
