@@ -6,7 +6,12 @@
   import GUN from "gun";
   const gun = new GUN();
 
-  import { username, receivedScreenshots, selectedScreenshot } from "./User";
+  import {
+    username,
+    receivedScreenshots,
+    selectedScreenshot,
+    selectedContact,
+  } from "./User";
 
   // on button click, set username
   function setUsername() {
