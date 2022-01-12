@@ -25,6 +25,7 @@
     .get($username)
     .map()
     .once((data, id) => {
+      console.log({ data, id, message: "screenshots loaded" });
       receivedScreenshots.set([...$receivedScreenshots, data]);
     });
 
@@ -34,8 +35,10 @@
     const index = new Date().toISOString();
     console.log({ username, uusername: $username });
     console.log(
-      `Sending message in 'screenshots' to ${$username} at index ${index}`
+      `Sending message in 'screenshots' to ${$selectedContact} at index ${index} from ${$username}`
     );
+
+    // const receivingContact = ($selectedContact).splice(2);
 
     gun
       .get("screenshots")
