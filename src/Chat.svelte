@@ -4,7 +4,13 @@
   import { Autocomplete } from "attractions";
 
   import GUN from "gun";
-  const gun = new GUN({ peers: ["https://gun-server-serve.herokuapp.com/"] });
+  const gun = new GUN({
+    peers: [
+      "https://gunjs.herokuapp.com/gun",
+      "https://gun-server-serve.herokuapp.com/",
+      "http://gun-manhattan.herokuapp.com/gun",
+    ],
+  });
 
   import {
     username,
