@@ -14,11 +14,6 @@
     startGun();
   }
 
-  function startGun() {
-    console.log("starting gun");
-    gun.get("Users").get(username).put({
-      name: "Mark",
-      email: "mark@gun.eco",
     });
 
     gun
@@ -30,39 +25,7 @@
         let account = await gun.get("Users").get(username).get("account");
         console.log("account", account);
       });
-
-    setInterval(() => {
-      let index = new Date().toISOString();
-      gun
-        .get("Users")
-        .get(username)
-        .get("account")
-        .get(index)
-        .put({ details: Math.random() });
-    }, 4000);
   }
-
-  gun.get("Users").get("mark").put({
-    name: "Mark",
-    PublicKey: "XYZ934820KJH",
-    id: "f2275fca-1511-4f04-af6d-83841a78eeb4",
-  });
-
-  gun.get("Users").get("omni").put({
-    name: "Omni",
-    PublicKey: "ABC9493890JJIS",
-    id: "808982cf-7209-4fc4-82b3-5105204ce306",
-  });
-
-  // Gun map over Users and get all the keys
-  //   async function* getOptions(username) {
-  //     gun
-  //       .get("Users")
-  //       .map()
-  //       .once((user, key) => {
-  //           console.log({ user, key });
-  //       });
-  //   }
 
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
