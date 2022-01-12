@@ -23,14 +23,23 @@
       receivedScreenshots.set([...$receivedScreenshots, data]);
     });
 
+  // Send screenshot to Gun user
+  function sendMessage() {
+    console.log("sending message");
+    const index = new Date().toISOString();
+    console.log({ username, uusername: $username });
+    console.log(
+      `Sending message in 'screenshots' to ${$username} at index ${index}`
+    );
+
     gun
-      .get("Users")
-      .get(username)
-      .on(async (data, key) => {
-        console.log("realtime updates:", data);
-        console.log({ key });
-        let account = await gun.get("Users").get(username).get("account");
-        console.log("account", account);
+      .get("screenshots")
+      .get($username)
+      .get(index)
+      .put({
+        image: $selectedScreenshot,
+        message: `Heres a screenshot from ${$username}`,
+        from: `${$username}`,
       });
   }
 
