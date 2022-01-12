@@ -39,7 +39,7 @@
 
     gun
       .get("screenshots")
-      .get($username)
+      .get($selectedContact)
       .get(index)
       .put({
         image: $selectedScreenshot,
