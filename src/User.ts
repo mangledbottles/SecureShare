@@ -19,7 +19,10 @@ export const userPassphrase = writable('');
 export const receivedScreenshots = writable([]);
 
 // Seleted Image to send
-export const selectedScreenshot = writable(null);
+export const selectedScreenshot = writable('');
+
+// Selected Contact to send Screenshot to
+export const selectedContact = writable('');
   
 user.get('alias').on(v => username.set(v))
 
