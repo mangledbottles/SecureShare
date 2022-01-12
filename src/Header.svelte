@@ -1,6 +1,6 @@
 <script lang="ts">
   // Import dependencies
-  import { username, user, userPassphrase } from "./User";
+  import { username, user, userPassphrase, receivedScreenshots, selectedScreenshot, selectedContact } from "./User";
 
   // Import components from Attractrions
   import { Subhead, Label, Chip } from "attractions";
@@ -10,6 +10,9 @@
     console.log("signing out");
     user.leave();
     username.set("");
+    receivedScreenshots.set([]);
+    selectedScreenshot.set(null);
+    selectedContact.set(null);
   }
 
   // Import dependencies
