@@ -83,5 +83,12 @@
     on:change={onContactSelection}
     selection={selectedContact}
   />
-  <!-- <Button filled>Send Secure Share</Button> -->
+  <Button filled on:click={sendMessage}>Send Secure Share</Button>
+
+  <!-- for each image in array receivedScreenshots display in svelte -->
+  <div class="screenshots">
+    {#each $receivedScreenshots as screenshot}
+      <img src={screenshot.image} alt="screenshot" />
+    {/each}
+  </div>
 </div>
