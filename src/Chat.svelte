@@ -13,11 +13,6 @@
     receiverKeyPairs,
   } from "./User";
 
-  // on button click, set username
-  function setUsername() {
-    console.log({ msg: "updating username", username });
-    startGun();
-  }
 
   // Load screenshots received from Gun, listen for incoming
   db
