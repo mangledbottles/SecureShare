@@ -28,6 +28,10 @@
       const { data: encryptedImage, from: fromUser } = data;
 
       const senderEPub = await getUserEPub(fromUser);
+
+      // Decrypt the image
+      const decryptSecret = await SEA.secret(senderEPub, $senderKeyPairs);
+      const decryptedMessage = await SEA.decrypt(encryptedImage, decryptSecret);
     });
 
   const getUserEPub = async (alias) => {
