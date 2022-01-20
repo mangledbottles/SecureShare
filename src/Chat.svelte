@@ -71,8 +71,8 @@
   async function* getOptions(selectedOption) {
     let options = [];
 
-
-    await db.get(`~@${selectedOption}`).once((data, userId) => {
+    // Find user in database (if it exists)
+    await db.get(`~@${selectedOption}`).once(async (data, userId) => {
       if (!data) return; // if no result, return
 
       console.log({ data, key: userId });
