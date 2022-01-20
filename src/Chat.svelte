@@ -75,22 +75,14 @@
     await db.get(`~@${selectedOption}`).once(async (data, userId) => {
       if (!data) return; // if no result, return
 
-      console.log({ data, key: userId });
-
       // Set the current chosen contact
-      // remove first 2 characters of userId
-
-
-      selectedContact.set(userId.substring(2));
-      console.log({ selectedContact})
-      console.log({ selectedContact: $selectedContact });
+      selectedContact.set(userId.substring(2)); // remove the ~@
 
       options.push({
         name: userId,
         details: `Unique Identifier ${data._}`,
       });
 
-      console.log({ key: userId });
     });
 
     yield options;
