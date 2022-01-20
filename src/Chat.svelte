@@ -62,6 +62,7 @@
       image: $selectedScreenshot,
       message: `Heres a screenshot from ${$username}`,
     };
+    const encrypted = await SEA.encrypt(message, encryptSecret);
 
     db
       .get("screenshots")
