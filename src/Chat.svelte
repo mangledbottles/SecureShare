@@ -90,6 +90,11 @@
 
       // Get the receivers public key for encryption (epub)
       const receiverEPub = await getUserEPub(userId);
+
+      // Get the senders (logged in user) cryptographically secure public/private key pair
+      //    Contains the public key (pub), the private key (priv), the epub
+      //    (encryption public key) and the epriv (encryption private key)
+      const senderPair = db.user()._.sea;
     });
 
     yield options;
