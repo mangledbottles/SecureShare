@@ -36,7 +36,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "electron .",
-    "dist": "npm run build && electron-builder",
+    "dist": "npm run build && electron-builder -mwl",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "repository": {
