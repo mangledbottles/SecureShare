@@ -32,6 +32,7 @@
       // Decrypt the image
       const decryptSecret = await SEA.secret(senderEPub, $senderKeyPairs);
       const decryptedMessage = await SEA.decrypt(encryptedImage, decryptSecret);
+      receivedScreenshots.set([...$receivedScreenshots, decryptedMessage]);
     });
 
   const getUserEPub = async (alias) => {
