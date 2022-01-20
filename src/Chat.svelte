@@ -64,16 +64,13 @@
     };
     const encrypted = await SEA.encrypt(message, encryptSecret);
 
-    db
-      .get("screenshots")
+    db.get("screenshots")
       .get($selectedContact)
       .get(index)
       .put({
-        image: $selectedScreenshot,
-        message: `Heres a screenshot from ${$username}`,
+        data: encrypted,
         from: `${$username}`,
       });
-  }
 
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
