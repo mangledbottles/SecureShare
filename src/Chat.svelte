@@ -26,6 +26,8 @@
     .once(async (data, id) => {
       if (data.data == null) return;
       const { data: encryptedImage, from: fromUser } = data;
+
+      const senderEPub = await getUserEPub(fromUser);
     });
 
   const getUserEPub = async (alias) => {
