@@ -83,6 +83,13 @@
         details: `Unique Identifier ${data._}`,
       });
 
+
+      /**
+       * End-to-end encryption (E2EE)
+       */
+
+      // Get the receivers public key for encryption (epub)
+      const receiverEPub = await getUserEPub(userId);
     });
 
     yield options;
