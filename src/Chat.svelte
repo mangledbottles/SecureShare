@@ -78,6 +78,8 @@
         from: `${$username}`,
       });
 
+  };
+
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
   async function* getOptions(selectedOption) {
