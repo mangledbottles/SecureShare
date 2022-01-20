@@ -3,13 +3,14 @@
   import { Button } from "attractions";
   import { Autocomplete } from "attractions";
 
-
   import {
     username,
     receivedScreenshots,
     selectedScreenshot,
     selectedContact,
-    db
+    db,
+    senderKeyPairs,
+    receiverKeyPairs,
   } from "./User";
 
   // on button click, set username
