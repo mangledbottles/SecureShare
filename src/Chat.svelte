@@ -58,6 +58,10 @@
       $receiverKeyPairs.epub,
       $senderKeyPairs
     );
+    const message = {
+      image: $selectedScreenshot,
+      message: `Heres a screenshot from ${$username}`,
+    };
 
     db
       .get("screenshots")
