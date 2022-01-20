@@ -3,33 +3,55 @@
   import { Button } from "attractions";
   import { Autocomplete } from "attractions";
 
-
   import {
     username,
     receivedScreenshots,
     selectedScreenshot,
     selectedContact,
-    db
+    db,
+    senderKeyPairs,
+    receiverKeyPairs,
   } from "./User";
 
-  // on button click, set username
-  function setUsername() {
-    console.log({ msg: "updating username", username });
-    startGun();
-  }
+  // Get the senders (logged in user) cryptographically secure public/private key pair
+  //    Contains the public key (pub), the private key (priv), the epub
+  //    (encryption public key) and the epriv (encryption private key)
+  const senderPair = db.user()._.sea;
+  senderKeyPairs.set({ ...$senderKeyPairs, ...senderPair });
 
   // Load screenshots received from Gun, listen for incoming
-  db
-    .get("screenshots")
+  db.get("screenshots")
     .get($username)
     .map()
-    .once((data, id) => {
-      console.log({ data, id, message: "screenshots loaded" });
-      receivedScreenshots.set([...$receivedScreenshots, data]);
+    .once(async (data, id) => {
+      if (data.data == null) return;
+      const { data: encryptedImage, from: fromUser } = data;
+
+      const senderEPub = await getUserEPub(fromUser);
+
+      // Decrypt the image
+      const decryptSecret = await SEA.secret(senderEPub, $senderKeyPairs);
+      const decryptedMessage = await SEA.decrypt(encryptedImage, decryptSecret);
+      receivedScreenshots.set([...$receivedScreenshots, decryptedMessage]);
     });
 
+  const getUserEPub = async (alias) => {
+    // check if alias starts with ~@ (database format for user alias)
+    if (!alias.startsWith("~@")) alias = `~@${alias}`;
+
+    const userAccount = await db.get(alias).once();
+    if (!userAccount) return;
+
+    // Get the receivers public key (pub)
+    const receiverPubKey = Object.keys(userAccount)[1].substring(1);
+    // Get the receivers public key for encryption (epub)
+    const receiverEPub = await db.user(receiverPubKey).get("epub");
+
+    return receiverEPub;
+  };
+
   // Send screenshot to Gun user
-  function sendMessage() {
+  const sendMessage = async () => {
     console.log("sending message");
     const index = new Date().toISOString();
     console.log({ username, uusername: $username });
@@ -37,44 +59,61 @@
       `Sending message in 'screenshots' to ${$selectedContact} at index ${index} from ${$username}`
     );
 
-    // const receivingContact = ($selectedContact).splice(2);
+    // Encrypt screenshot and message
+    const encryptSecret = await SEA.secret(
+      $receiverKeyPairs.epub,
+      $senderKeyPairs
+    );
+    const message = {
+      image: $selectedScreenshot,
+      message: `Heres a screenshot from ${$username}`,
+    };
+    const encrypted = await SEA.encrypt(message, encryptSecret);
 
-    db
-      .get("screenshots")
+    db.get("screenshots")
       .get($selectedContact)
       .get(index)
       .put({
-        image: $selectedScreenshot,
-        message: `Heres a screenshot from ${$username}`,
+        data: encrypted,
         from: `${$username}`,
       });
-  }
+
+  };
 
   // AutoComplete component to search for user contact
   let currentChosenContact = [];
   async function* getOptions(selectedOption) {
     let options = [];
 
-
-    await db.get(`~@${selectedOption}`).once((data, userId) => {
+    // Find user in database (if it exists)
+    await db.get(`~@${selectedOption}`).once(async (data, userId) => {
       if (!data) return; // if no result, return
 
-      console.log({ data, key: userId });
-
       // Set the current chosen contact
-      // remove first 2 characters of userId
-
-
-      selectedContact.set(userId.substring(2));
-      console.log({ selectedContact})
-      console.log({ selectedContact: $selectedContact });
+      selectedContact.set(userId.substring(2)); // remove the ~@
 
       options.push({
         name: userId,
         details: `Unique Identifier ${data._}`,
       });
 
-      console.log({ key: userId });
+
+      /**
+       * End-to-end encryption (E2EE)
+       */
+
+      // Get the receivers public key for encryption (epub)
+      const receiverEPub = await getUserEPub(userId);
+
+      // Get the senders (logged in user) cryptographically secure public/private key pair
+      //    Contains the public key (pub), the private key (priv), the epub
+      //    (encryption public key) and the epriv (encryption private key)
+      const senderPair = db.user()._.sea;
+
+      // Update state with key pairs
+      senderKeyPairs.set({ ...$senderKeyPairs, ...senderPair });
+      receiverKeyPairs.set({ ...$receiverKeyPairs, epub: receiverEPub });
+
     });
 
     yield options;

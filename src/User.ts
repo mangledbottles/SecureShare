@@ -23,6 +23,12 @@ export const selectedScreenshot = writable('');
 
 // Selected Contact to send Screenshot to
 export const selectedContact = writable('');
+
+// Sender: Cryptographically secure public/private key pair
+export const senderKeyPairs = writable({});
+
+// Receiver: Cryptographically secure public key pair
+export const receiverKeyPairs = writable({});
   
 user.get('alias').on(v => username.set(v))
 
