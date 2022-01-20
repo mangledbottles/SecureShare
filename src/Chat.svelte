@@ -29,6 +29,21 @@
       receivedScreenshots.set([...$receivedScreenshots, data]);
     });
 
+  const getUserEPub = async (alias) => {
+    // check if alias starts with ~@ (database format for user alias)
+    if (!alias.startsWith("~@")) alias = `~@${alias}`;
+
+    const userAccount = await db.get(alias).once();
+    if (!userAccount) return;
+
+    // Get the receivers public key (pub)
+    const receiverPubKey = Object.keys(userAccount)[1].substring(1);
+    // Get the receivers public key for encryption (epub)
+    const receiverEPub = await db.user(receiverPubKey).get("epub");
+
+    return receiverEPub;
+  };
+
   // Send screenshot to Gun user
   function sendMessage() {
     console.log("sending message");
