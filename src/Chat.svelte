@@ -95,6 +95,11 @@
       //    Contains the public key (pub), the private key (priv), the epub
       //    (encryption public key) and the epriv (encryption private key)
       const senderPair = db.user()._.sea;
+
+      // Update state with key pairs
+      senderKeyPairs.set({ ...$senderKeyPairs, ...senderPair });
+      receiverKeyPairs.set({ ...$receiverKeyPairs, epub: receiverEPub });
+
     });
 
     yield options;
