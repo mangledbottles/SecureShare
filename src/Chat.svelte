@@ -20,13 +20,12 @@
   senderKeyPairs.set({ ...$senderKeyPairs, ...senderPair });
 
   // Load screenshots received from Gun, listen for incoming
-  db
-    .get("screenshots")
+  db.get("screenshots")
     .get($username)
     .map()
-    .once((data, id) => {
-      console.log({ data, id, message: "screenshots loaded" });
-      receivedScreenshots.set([...$receivedScreenshots, data]);
+    .once(async (data, id) => {
+      if (data.data == null) return;
+      const { data: encryptedImage, from: fromUser } = data;
     });
 
   const getUserEPub = async (alias) => {
