@@ -53,7 +53,11 @@
       `Sending message in 'screenshots' to ${$selectedContact} at index ${index} from ${$username}`
     );
 
-    // const receivingContact = ($selectedContact).splice(2);
+    // Encrypt screenshot and message
+    const encryptSecret = await SEA.secret(
+      $receiverKeyPairs.epub,
+      $senderKeyPairs
+    );
 
     db
       .get("screenshots")
