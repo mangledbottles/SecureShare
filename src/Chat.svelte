@@ -45,7 +45,7 @@
   };
 
   // Send screenshot to Gun user
-  function sendMessage() {
+  const sendMessage = async () => {
     console.log("sending message");
     const index = new Date().toISOString();
     console.log({ username, uusername: $username });
