@@ -1,5 +1,9 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, systemPreferences } = require("electron");
 const path = require("path");
+
+// Set the Screen Access status as environment variable to be read in Svelte
+const screenAccessPermission = systemPreferences.getMediaAccessStatus("screen");
+process.env.screenAccessPermission = screenAccessPermission;
 
 const production = (process.env.NODE_ENV === "production");
 
