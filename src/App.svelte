@@ -11,12 +11,23 @@
 </script>
 
 <main>
-  <Header name={name} />
-  {#if $username && $userPassphrase == ''}
+  <Header {name} />
+  {#if !isScreenAccessPermitted}
+    <div>
+      <h2>
+        You must allow Secure Share to access Screen. This is used to take a
+        screenshot.
+      </h2>
+      <h3>
+        To do this, goto System Preferences -> Privacy -> Screen Recording;
+        enable this application.
+      </h3>
+    </div>
+  {/if}
+  {#if $username && $userPassphrase == "" && isScreenAccessPermitted}
     <Screenshot />
     <Chat />
-  {/if}
-  {#if !$username}
+  {:else if isScreenAccessPermitted}
     <Auth />
   {/if}
 </main>
