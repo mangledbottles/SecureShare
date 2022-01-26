@@ -5,6 +5,9 @@
   import Chat from "./Chat.svelte";
   import Auth from "./Auth.svelte";
   import Screenshot from './Screenshot.svelte';
+  const isScreenAccessPermitted =
+    process.env.screenAccessPermission === "granted" ||
+    process.env.screenAccessPermission == null;
 </script>
 
 <main>
