@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, systemPreferences } = require("electron");
 const path = require("path");
 
 const production = (process.env.NODE_ENV === "production");
